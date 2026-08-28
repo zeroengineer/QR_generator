@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium QR Code Studio</title>
+  <meta name="description" content="Generate custom, high-quality, and completely free QR codes for any URL. Custom colors, sizes, and error correction levels available offline forever.">
+  
+  <!-- Google Fonts - Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Link custom styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-decor">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main class="app-container">
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-solid fa-qrcode accent-gradient-text"></i>
+        <h1>QR Code Studio</h1>
+      </div>
+      <p class="subtitle">Free, high-quality QR generation that runs entirely in your browser.</p>
+    </header>
+
+    <!-- Interactive Dashboard -->
+    <section class="dashboard">
+      <!-- Control Panel (Left Card) -->
+      <div class="glass-card control-card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-sliders"></i> Customize QR Code</h2>
+        </div>
+        
+        <form id="qr-control-form" class="control-form" onsubmit="event.preventDefault();">
+          <!-- URL Input -->
+          <div class="input-group">
+            <label for="qr-url">Destination URL</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-link input-icon"></i>
+              <input type="url" id="qr-url" placeholder="https://example.com" value="https://www.instagram.com/snaptiqz" required autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Color Customizer -->
+          <div class="customizer-row">
+            <!-- Dark Color (Foreground) -->
+            <div class="input-group half-width">
+              <label for="color-dark">QR Blocks Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" id="color-dark" value="#000000">
+                <span id="color-dark-val" class="color-hex-val">#000000</span>
+              </div>
+            </div>
+
+            <!-- Light Color (Background) -->
+            <div class="input-group half-width">
+              <label for="color-light">Background Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" id="color-light" value="#ffffff">
+                <span id="color-light-val" class="color-hex-val">#FFFFFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Logo Watermark Customizer -->
+          <div class="logo-watermark-section">
+            <div class="checkbox-group">
+              <input type="checkbox" id="logo-enable" checked>
+              <label for="logo-enable"><i class="fa-solid fa-stamp"></i> Include Logo Watermark</label>
+            </div>
+            
+            <div id="logo-options" class="logo-options">
+              <div class="customizer-row">
+                <div class="input-group half-width">
+                  <label>Watermark Image</label>
+                  <div class="file-upload-wrapper">
+                    <button type="button" class="btn btn-secondary btn-file-upload" onclick="document.getElementById('logo-file').click();">
+                      <i class="fa-solid fa-image"></i> <span id="file-name-label">Default Logo</span>
+                    </button>
+                    <input type="file" id="logo-file" accept="image/*" style="display: none;">
+                  </div>
+                </div>
+                
+                <div class="input-group half-width">
+                  <div class="label-with-val">
+                    <label for="logo-size">Logo Size (% of QR)</label>
+                    <span id="logo-size-val" class="range-val">15%</span>
+                  </div>
+                  <input type="range" id="logo-size" min="10" max="30" value="15" step="1">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Settings Toggle -->
+          <button type="button" id="advanced-toggle" class="btn btn-secondary btn-text-only">
+            <span>Advanced Settings</span> <i class="fa-solid fa-chevron-down toggle-icon"></i>
+          </button>
+
+          <!-- Advanced Controls (Collapsible) -->
+          <div id="advanced-controls" class="advanced-controls collapsed">
+            <!-- Margin Slider -->
+            <div class="input-group">
+              <div class="label-with-val">
+                <label for="qr-margin">Border Margin</label>
+                <span id="margin-val" class="range-val">2px</span>
+              </div>
+              <input type="range" id="qr-margin" min="0" max="10" value="2" step="1">
+            </div>
+
+            <!-- Error Correction Level -->
+            <div class="input-group">
+              <label for="qr-error-level">Error Correction Level</label>
+              <div class="select-wrapper">
+                <select id="qr-error-level">
+                  <option value="L">Low (7% recovery capability)</option>
+                  <option value="M">Medium (15% recovery capability)</option>
+                  <option value="Q">Quartile (25% recovery capability)</option>
+                  <option value="H" selected>High (30% recovery capability - Recommended)</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
+              </div>
+            </div>
+
+            <!-- Custom Size -->
+            <div class="input-group">
+              <label for="qr-size">Output Resolution</label>
+              <div class="select-wrapper">
+                <select id="qr-size">
+                  <option value="256">256 x 256 px</option>
+                  <option value="512">512 x 512 px</option>
+                  <option value="1024" selected>1024 x 1024 px (High Quality)</option>
+                  <option value="2048">2048 x 2048 px (Ultra Print Quality)</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Preview Panel (Right Card) -->
+      <div class="glass-card preview-card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-eye"></i> Live Preview</h2>
+        </div>
+
+        <div class="preview-workspace">
+          <!-- Loading overlay -->
+          <div id="qr-loader" class="loader-container hidden">
+            <div class="spinner"></div>
+          </div>
+
+          <!-- Canvas container -->
+          <div class="canvas-wrapper">
+            <canvas id="qr-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="action-buttons">
+          <button type="button" id="btn-download" class="btn btn-primary">
+            <i class="fa-solid fa-download"></i> Download QR Image
+          </button>
+          <button type="button" id="btn-copy" class="btn btn-secondary">
+            <i class="fa-solid fa-copy"></i> Copy to Clipboard
+          </button>
+        </div>
+
+        <div class="scan-tip">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span>Point your smartphone camera to test scan the code.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>100% Free &amp; Offline QR Studio. No data is sent to external servers.</p>
+  </footer>
+
+  <!-- Include offline-compatible QR code script from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <!-- Main application script -->
+  <script src="app.js"></script>
+</body>
+</html>
