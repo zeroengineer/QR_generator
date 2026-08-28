@@ -22,3 +22,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Generated QR output
+snaptiqz-qr.png
+*-qr.png

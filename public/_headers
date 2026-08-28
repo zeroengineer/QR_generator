@@ -1,0 +1,20 @@
+# Cloudflare Pages reads this file from the output root and turns each block
+# into real HTTP response headers.
+
+# Fingerprint-free but effectively immutable: these only change when the file
+# name changes, so a long cache is safe.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The entry point must always be revalidated, or a deploy would not reach
+# anyone holding a cached copy.
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
